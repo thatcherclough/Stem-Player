@@ -33,7 +33,7 @@ class StemPlayerViewModel: ObservableObject {
     var playerCenterColror: Color = Color(hex:"C8AB89")
     var playerOuterColor: Color = Color(hex: "A7937C")
     var sliderBackgroundColor: Color = Color(hex: "BAA386")
-    var playerWidth: CGFloat = 450
+    @Published var playerWidth: CGFloat = 450
     
     @Published var stem1: Stem
     @Published var stem2: Stem
@@ -84,6 +84,8 @@ class StemPlayerViewModel: ObservableObject {
                                                name: NSNotification.Name.AVAudioEngineConfigurationChange,
                                                object: nil
         )
+        
+        setup()
     }
     
     @objc func handleInterruption() {
@@ -441,6 +443,11 @@ struct StemPlayerView: View {
                     }
                     .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))
                     .zIndex(1)
+                    .onAppear {
+                        if (geometry.size.width < stemPlayerViewModel.playerWidth) {
+                            stemPlayerViewModel.playerWidth = geometry.size.width
+                        }
+                    }
                 }
                 
                 Spacer()
@@ -459,13 +466,6 @@ struct StemPlayerView: View {
             }
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))
-            .onAppear {
-                if (geometry.size.width < stemPlayerViewModel.playerWidth) {
-                    stemPlayerViewModel.playerWidth = geometry.size.width
-                }
-                
-                stemPlayerViewModel.setup()
-            }
             .onDisappear {
                 stemPlayerViewModel.audioEngine.stop()
             }
@@ -576,16 +576,6 @@ struct StemSlider: View {
                     .frame(width: geometry.size.width * 0.8)
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
-//                .highPriorityGesture(
-//                    DragGesture(minimumDistance: 0)
-//                        .onChanged({ value in
-//                            self.percent = (value.location.x * 0.8) - (geometry.size.width * 0.1)
-//                            let snappingPercent = self.percent >= 75 ? 100 : (self.percent >= 50 ? 66.66 : (self.percent >= 25 ? 33.33 : 0))
-//                            if (snappingPercent != self.snappingPercent) {
-//                                sliderPercentageChange(snappingPercent)
-//                            }
-//                            self.snappingPercent = snappingPercent
-//                        }))
                 .highPriorityGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged({ value in

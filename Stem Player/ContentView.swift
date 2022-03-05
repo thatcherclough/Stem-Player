@@ -8,6 +8,9 @@
 import SwiftUI
 import AVFoundation
 
+// New audio device doesnt edit stems
+// Chosing files on mac
+
 struct ContentView: View {
     @State var track: Track?
     

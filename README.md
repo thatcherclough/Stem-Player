@@ -2,7 +2,7 @@
 Stem Player is an iOS app that can manipulate song stems.
 
 ## Demo
-Input|Choose meaning|Translation
+Start Screen|Add Song|Stem Player
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](./images/6.5/6.5_1.png)|![](./images/6.5/6.5_2.png)|![](./images/6.5/6.5_3.png)
 
