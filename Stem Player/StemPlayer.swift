@@ -96,7 +96,6 @@ class StemPlayerViewModel: ObservableObject {
     func setup() {
         DispatchQueue.global(qos: .background).async {
             do {
-                self.audioEngine.reset()
                 self.audioEngine.attach(self.mixer)
                 self.audioEngine.connect(self.mixer, to: self.audioEngine.outputNode, format: nil)
                 try self.audioEngine.start()
