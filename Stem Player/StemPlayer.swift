@@ -465,12 +465,16 @@ struct StemPlayerView: View {
             }
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))
-            .onDisappear {
-                stemPlayerViewModel.audioEngine.stop()
-            }
-            .alert(isPresented: $stemPlayerViewModel.showError) {
-                Alert(title: Text(stemPlayerViewModel.error), message: Text(stemPlayerViewModel.errorMessage), dismissButton: .default(Text("Ok")))
-            }
+        }
+        .onDisappear {
+            stemPlayerViewModel.stem1.player?.stop()
+            stemPlayerViewModel.stem2.player?.stop()
+            stemPlayerViewModel.stem3.player?.stop()
+            stemPlayerViewModel.stem4.player?.stop()
+            stemPlayerViewModel.audioEngine.stop()
+        }
+        .alert(isPresented: $stemPlayerViewModel.showError) {
+            Alert(title: Text(stemPlayerViewModel.error), message: Text(stemPlayerViewModel.errorMessage), dismissButton: .default(Text("Ok")))
         }
     }
 }
