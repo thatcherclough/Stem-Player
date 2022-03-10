@@ -9,9 +9,10 @@ import SwiftUI
 import AVFoundation
 
 // Chosing files on mac
+// Repo name chnage
+// Splitting
 
 struct ContentView: View {
-    @State var track: Track?
     
     @State var showAddSong: Bool = false
     @State var showLibrary: Bool = false
@@ -23,7 +24,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                if (showStemPlayer && stemPlayerView != nil && track != nil) {
+                if (showStemPlayer && stemPlayerView != nil) {
                     stemPlayerView
                         .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                         .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))
@@ -33,8 +34,10 @@ struct ContentView: View {
                         if (track == nil) {
                             showAddSong = false
                         } else {
-                            self.track = track
                             storeTrack(track: track!)
+                            stemPlayerView = StemPlayerView(track: track!) {
+                                showStemPlayer = false
+                            }
                             showStemPlayer = true
                             showAddSong = false
                         }
@@ -45,11 +48,8 @@ struct ContentView: View {
                 } else if (showLibrary) {
                     LibraryView(tracks: Shared.instance.savedTracks, completion: { track in
                         if (track != nil) {
-                            self.track = track
-                            
                             stemPlayerView = StemPlayerView(track: track!) {
                                 showStemPlayer = false
-                                self.track = nil
                             }
                             showStemPlayer = true
                         } else {

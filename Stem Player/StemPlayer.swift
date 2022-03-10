@@ -89,6 +89,7 @@ class StemPlayerViewModel: ObservableObject {
     }
     
     @objc func handleInterruption() {
+        engineStarting = true
         pause()
         setup()
     }
@@ -150,7 +151,6 @@ class StemPlayerViewModel: ObservableObject {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    self.engineStarting = false
                     self.error = "Audio engine error"
                     self.errorMessage = "An error occured when setting up the audio engine."
                     self.showError = true
@@ -344,6 +344,8 @@ struct StemPlayerView: View {
     
     @ObservedObject var stemPlayerViewModel: StemPlayerViewModel
     
+    @Environment(\.scenePhase) var scenePhase
+    
     init(track: Track, completion: @escaping () -> Void) {
         self.completion = completion
         stemPlayerViewModel = StemPlayerViewModel(track: track)
@@ -473,6 +475,11 @@ struct StemPlayerView: View {
             stemPlayerViewModel.stem4.player?.stop()
             stemPlayerViewModel.audioEngine.stop()
         }
+        .onChange(of: scenePhase, perform: { phase in
+            if (phase == .active && !stemPlayerViewModel.audioEngine.isRunning) {
+                stemPlayerViewModel.handleInterruption()
+            }
+        })
         .alert(isPresented: $stemPlayerViewModel.showError) {
             Alert(title: Text(stemPlayerViewModel.error), message: Text(stemPlayerViewModel.errorMessage), dismissButton: .default(Text("Ok")))
         }

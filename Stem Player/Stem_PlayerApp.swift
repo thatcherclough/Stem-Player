@@ -18,7 +18,8 @@ struct Stem_PlayerApp: App {
             ContentView()
                 .onAppear {
                     do {
-                        try AVAudioSession.sharedInstance().setCategory(.playback)
+                        try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [ .allowAirPlay])
+                        try AVAudioSession.sharedInstance().setActive(true)
                         UIApplication.shared.isIdleTimerDisabled = true
                     } catch {}
                 }
