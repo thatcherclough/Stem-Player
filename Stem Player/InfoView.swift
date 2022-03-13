@@ -64,7 +64,7 @@ struct InfoView: View {
                     .padding(2.5)
                     
                     Button {
-                        openURL(URL(string: "https://github.com/ThatcherClough/StemPlayer")!)
+                        openURL(URL(string: "https://github.com/ThatcherClough/Stem-Player")!)
                     } label: {
                         Text("[ SOURCE CODE ]")
                             .font(.custom("HelveticaNeue-CondensedBold", size: 25))
