@@ -171,6 +171,8 @@ struct AddSongView: View {
                 
                 HStack(spacing: 20) {
                     Button {
+                        hideKeyboard()
+                        
                         completion(nil)
                     } label: {
                         Text("[ CANCEL ]")
@@ -179,6 +181,8 @@ struct AddSongView: View {
                     }
                     
                     Button {
+                        hideKeyboard()
+                        
                         if (songTitle.isEmpty) {
                             alertTitle = "Chose song title"
                             alertMessage = "Chose a song title before saving."
@@ -235,6 +239,14 @@ struct AddSongView: View {
         }
     }
 }
+
+#if canImport(UIKit)
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+#endif
 
 extension UIColor {
     func toColor(_ color: UIColor, percentage: CGFloat) -> UIColor {
