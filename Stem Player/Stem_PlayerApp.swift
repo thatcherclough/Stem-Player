@@ -21,6 +21,9 @@ struct Stem_PlayerApp: App {
                         try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [ .allowAirPlay])
                         try AVAudioSession.sharedInstance().setActive(true)
                         UIApplication.shared.isIdleTimerDisabled = true
+                        
+//                        var splitter = StemSplitter(youtubeURL: URL(string: "https://www.youtube.com/watch?v=bnFa4Mq5PAM")!, dir: )
+//                        splitter.split()
                     } catch {}
                 }
         }

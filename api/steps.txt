@@ -1,0 +1,78 @@
+- Setting up server:
+sudo apt update && sudo apt upgrade
+sudo apt install apache2
+sudo apt install apache2-dev python3-dev python3-pip python3-venv
+#sudo apt-get install libapache2-mod-wsgi python-dev
+sudo apt-get install libapache2-mod-wsgi-py3
+sudo a2enmod wsgi
+
+
+- Setup server files:
+sudo mkdir -p /var/www/sitename
+
+sudo chown -R thatcher_clough:thatcher_clough /var/www/api/
+
+sudo apt-get install python3-pip
+pip3 install --upgrade pip
+python3 -m venv /var/www/sitename/venv
+source /var/www/sitename/venv/bin/activate
+pip3 install flask[async]
+- Install all other necessary files (spleeter, demucs, pytube, 
+sudo apt-get install libsndfile1-dev
+sudo apt-get install ffmpeg
+
+touch /var/www/sitename/sitename.py
+File:
+**
+import flask
+from flask import jsonify
+from flask import request
+
+app = flask.Flask(__name__)
+
+@app.route("/api", methods=["GET"])
+def api():
+    ret = {"message": "Stem Player API"}
+    return jsonify(ret), 200
+
+if __name__ == '__main__':
+    app.run()
+**
+
+touch /var/www/sitename/sitename.wsgi
+File:
+**
+import sys
+sys.path.insert(0, '/var/www/api/')
+sys.path.insert(0, '/var/www/api/venv/lib/python3.7/site-packages/')
+from api import app as application
+**
+
+touch /etc/apache2/sites-available/sitename.conf
+File:
+**
+<VirtualHost *:80>
+        ServerName 34.125.136.194
+        WSGIDaemonProcess api user=www-data group=www-data threads=5
+        WSGIScriptAlias / /var/www/api/api.wsgi
+        <Directory /var/www/api>
+                WSGIProcessGroup api
+                WSGIApplicationGroup %{GLOBAL}
+                Order allow,deny
+                Allow from all
+        </Directory>
+        Alias '/downloads' '/var/www/api/downloads'       
+ 
+        ErrorLog /var/www/api/error.log
+</VirtualHost>
+**
+sudo chown -R www-data:www-data /var/www/sitename
+sudo a2ensite sitename.conf
+sudo apachectl restart
+
+
+pip3 install spleeter
+export PATH="$HOME/.local/bin:$PATH"
+source ~/.bashrc
+
+

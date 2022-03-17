@@ -21,6 +21,11 @@ struct AddSongView: View {
     @State var color2 = UIColor(hexString: "003099")
     @State var showColor2Picker: Bool = false
     
+    @State var showEnterYoutubeLink: Bool = false
+    @State var youtubeLink: String = ""
+    
+    @State var showChoseIndividualStems: Bool = false
+    
     @State var stem1URL: URL?
     @State var showStem1Picker: Bool = false
     @State var stem2URL: URL?
@@ -87,83 +92,124 @@ struct AddSongView: View {
                 }
                 
                 Spacer()
-                
-                VStack(spacing: 15) {
+                if showChoseIndividualStems {
+                    VStack(spacing: 15) {
+                        Button {
+                            showStem1Picker.toggle()
+                        } label: {
+                            Text(stem1URL == nil ? "[ CHOSE STEM 1 ]" : stem1URL!.lastPathComponent)
+                                .font(.custom("HelveticaNeue-CondensedBold", size: 25))
+                                .foregroundColor(Color(UIColor.label))
+                        }
+                        .sheet(isPresented: $showStem1Picker) {
+                            DocumentPicker() { url in
+                                if (url == nil) {
+                                    alertTitle = "Could not chose stem"
+                                    alertMessage = "An error occurred when trying to chose stem."
+                                    showAlert = true
+                                }
+                                stem1URL = getPermanentStemURL(url: url!)
+                            }
+                            .ignoresSafeArea(.all)
+                        }
+                        
+                        
+                        Button {
+                            showStem2Picker.toggle()
+                        } label: {
+                            Text(stem2URL == nil ? "[ CHOSE STEM 2 ]" : stem2URL!.lastPathComponent)
+                                .font(.custom("HelveticaNeue-CondensedBold", size: 25))
+                                .foregroundColor(Color(UIColor.label))
+                        }
+                        .sheet(isPresented: $showStem2Picker) {
+                            DocumentPicker() { url in
+                                if (url == nil) {
+                                    alertTitle = "Could not chose stem"
+                                    alertMessage = "An error occurred when trying to chose stem."
+                                    showAlert = true
+                                }
+                                stem2URL = getPermanentStemURL(url: url!)
+                            }
+                            .ignoresSafeArea(.all)
+                        }
+                        
+                        Button {
+                            showStem3Picker.toggle()
+                        } label: {
+                            Text(stem3URL == nil ? "[ CHOSE STEM 3 ]" : stem3URL!.lastPathComponent)
+                                .font(.custom("HelveticaNeue-CondensedBold", size: 25))
+                                .foregroundColor(Color(UIColor.label))
+                        }
+                        .sheet(isPresented: $showStem3Picker) {
+                            DocumentPicker() { url in
+                                if (url == nil) {
+                                    alertTitle = "Could not chose stem"
+                                    alertMessage = "An error occurred when trying to chose stem."
+                                    showAlert = true
+                                }
+                                stem3URL = getPermanentStemURL(url: url!)
+                            }
+                            .ignoresSafeArea(.all)
+                        }
+                        
+                        Button {
+                            showStem4Picker.toggle()
+                        } label: {
+                            Text(stem4URL == nil ? "[ CHOSE STEM 4 ]" : stem4URL!.lastPathComponent)
+                                .font(.custom("HelveticaNeue-CondensedBold", size: 25))
+                                .foregroundColor(Color(UIColor.label))
+                        }
+                        .sheet(isPresented: $showStem4Picker) {
+                            DocumentPicker() { url in
+                                if (url == nil) {
+                                    alertTitle = "Could not chose stem"
+                                    alertMessage = "An error occurred when trying to chose stem."
+                                    showAlert = true
+                                }
+                                stem4URL = getPermanentStemURL(url: url!)
+                            }
+                            .ignoresSafeArea(.all)
+                        }
+                        
+                        Button {
+                            showChoseIndividualStems = false
+                        } label: {
+                            Text("[ BACK ]")
+                                .font(.custom("HelveticaNeue-CondensedBold", size: 25))
+                                .foregroundColor(Color(UIColor.label))
+                        }
+                    }
+                } else if showEnterYoutubeLink {
+                    TextField("YOUTUBE LINK", text: $youtubeLink)
+                        .font(.custom("HelveticaNeue-CondensedBold", size: 25))
+                        .multilineTextAlignment(.center)
+                        .frame(width: geometry.size.width - 50)
+                        .disableAutocorrection(true)
+                    
                     Button {
-                        showStem1Picker.toggle()
+                        showEnterYoutubeLink = false
                     } label: {
-                        Text(stem1URL == nil ? "[ CHOSE STEM 1 ]" : stem1URL!.lastPathComponent)
+                        Text("[ BACK ]")
                             .font(.custom("HelveticaNeue-CondensedBold", size: 25))
                             .foregroundColor(Color(UIColor.label))
                     }
-                    .sheet(isPresented: $showStem1Picker) {
-                        DocumentPicker() { url in
-                            if (url == nil) {
-                                alertTitle = "Could not chose stem"
-                                alertMessage = "An error occurred when trying to chose stem."
-                                showAlert = true
-                            }
-                            stem1URL = getPermanentStemURL(url: url!)
+                } else {
+                    VStack(spacing: 15) {
+                        Button {
+                            showChoseIndividualStems = true
+                        } label: {
+                            Text("[ CHOSE INDIVIDUAL STEMS ]")
+                                .font(.custom("HelveticaNeue-CondensedBold", size: 25))
+                                .foregroundColor(Color(UIColor.label))
                         }
-                        .ignoresSafeArea(.all)
-                    }
-                    
-                    
-                    Button {
-                        showStem2Picker.toggle()
-                    } label: {
-                        Text(stem2URL == nil ? "[ CHOSE STEM 2 ]" : stem2URL!.lastPathComponent)
-                            .font(.custom("HelveticaNeue-CondensedBold", size: 25))
-                            .foregroundColor(Color(UIColor.label))
-                    }
-                    .sheet(isPresented: $showStem2Picker) {
-                        DocumentPicker() { url in
-                            if (url == nil) {
-                                alertTitle = "Could not chose stem"
-                                alertMessage = "An error occurred when trying to chose stem."
-                                showAlert = true
-                            }
-                            stem2URL = getPermanentStemURL(url: url!)
+                        
+                        Button {
+                            showEnterYoutubeLink = true
+                        } label: {
+                            Text("[ ENTER YOUTUBE LINK ]")
+                                .font(.custom("HelveticaNeue-CondensedBold", size: 25))
+                                .foregroundColor(Color(UIColor.label))
                         }
-                        .ignoresSafeArea(.all)
-                    }
-                    
-                    Button {
-                        showStem3Picker.toggle()
-                    } label: {
-                        Text(stem3URL == nil ? "[ CHOSE STEM 3 ]" : stem3URL!.lastPathComponent)
-                            .font(.custom("HelveticaNeue-CondensedBold", size: 25))
-                            .foregroundColor(Color(UIColor.label))
-                    }
-                    .sheet(isPresented: $showStem3Picker) {
-                        DocumentPicker() { url in
-                            if (url == nil) {
-                                alertTitle = "Could not chose stem"
-                                alertMessage = "An error occurred when trying to chose stem."
-                                showAlert = true
-                            }
-                            stem3URL = getPermanentStemURL(url: url!)
-                        }
-                        .ignoresSafeArea(.all)
-                    }
-                    
-                    Button {
-                        showStem4Picker.toggle()
-                    } label: {
-                        Text(stem4URL == nil ? "[ CHOSE STEM 4 ]" : stem4URL!.lastPathComponent)
-                            .font(.custom("HelveticaNeue-CondensedBold", size: 25))
-                            .foregroundColor(Color(UIColor.label))
-                    }
-                    .sheet(isPresented: $showStem4Picker) {
-                        DocumentPicker() { url in
-                            if (url == nil) {
-                                alertTitle = "Could not chose stem"
-                                alertMessage = "An error occurred when trying to chose stem."
-                                showAlert = true
-                            }
-                            stem4URL = getPermanentStemURL(url: url!)
-                        }
-                        .ignoresSafeArea(.all)
                     }
                 }
                 
@@ -182,6 +228,24 @@ struct AddSongView: View {
                     
                     Button {
                         hideKeyboard()
+                        
+                        if (showEnterYoutubeLink) {
+                            if let youtubeLinkURL = URL(string: youtubeLink) {
+                                let trackDirectory: URL = .audioFilesDirectory.appendingPathComponent(uuid, isDirectory: true)
+                                try? FileManager.default.createDirectory(at: trackDirectory, withIntermediateDirectories: true, attributes: nil)
+                                let splitter = StemSplitter(youtubeURL: youtubeLinkURL, dir: trackDirectory)
+                                splitter.setCompletion { urls in
+                                    print("completion")
+                                }
+                                splitter.split()
+                                
+                            } else {
+                                alertTitle = "Enter a valid YouTube link"
+                                alertMessage = "Enter a valid YouTube link before adding."
+                                showAlert = true
+                            }
+                            
+                        }
                         
                         if (songTitle.isEmpty) {
                             alertTitle = "Chose song title"
@@ -237,6 +301,10 @@ struct AddSongView: View {
         } catch {
             return nil
         }
+    }
+    
+    func getStems(youtubeURL: URL) {
+        
     }
 }
 

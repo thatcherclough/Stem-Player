@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD264F9B27E2761D00580A98 /* StemSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD264F9A27E2761D00580A98 /* StemSplitter.swift */; };
+		DD264F9D27E2812B00580A98 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD264F9C27E2812B00580A98 /* FileDownloader.swift */; };
 		DD5CB5E727D19F7800870E02 /* ColorPickerRing in Frameworks */ = {isa = PBXBuildFile; productRef = DD5CB5E627D19F7800870E02 /* ColorPickerRing */; };
 		DD5CB5E927D1BA3200870E02 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5CB5E827D1BA3200870E02 /* InfoView.swift */; };
 		DD7E9B7527CAF2C70011A5B1 /* Stem_PlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7E9B7427CAF2C70011A5B1 /* Stem_PlayerApp.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD264F9A27E2761D00580A98 /* StemSplitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StemSplitter.swift; sourceTree = "<group>"; };
+		DD264F9C27E2812B00580A98 /* FileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
 		DD5CB5E827D1BA3200870E02 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		DD7E9B7127CAF2C70011A5B1 /* Stem Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stem Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD7E9B7427CAF2C70011A5B1 /* Stem_PlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stem_PlayerApp.swift; sourceTree = "<group>"; };
@@ -75,9 +79,11 @@
 				DD9CC66627CDE2B200B8D0A0 /* LibraryView.swift */,
 				DD5CB5E827D1BA3200870E02 /* InfoView.swift */,
 				DD9CC66427CDE14700B8D0A0 /* Shared.swift */,
+				DD264F9C27E2812B00580A98 /* FileDownloader.swift */,
 				DD7E9B8227CAF2DF0011A5B1 /* ContentView.swift */,
 				DD7E9B7827CAF2C80011A5B1 /* Assets.xcassets */,
 				DD7E9B7A27CAF2C80011A5B1 /* Preview Content */,
+				DD264F9A27E2761D00580A98 /* StemSplitter.swift */,
 			);
 			path = "Stem Player";
 			sourceTree = "<group>";
@@ -173,6 +179,8 @@
 				DD9CC66727CDE2B200B8D0A0 /* LibraryView.swift in Sources */,
 				DD7E9B7527CAF2C70011A5B1 /* Stem_PlayerApp.swift in Sources */,
 				DD7E9B8427CAF2DF0011A5B1 /* ContentView.swift in Sources */,
+				DD264F9D27E2812B00580A98 /* FileDownloader.swift in Sources */,
+				DD264F9B27E2761D00580A98 /* StemSplitter.swift in Sources */,
 				DD5CB5E927D1BA3200870E02 /* InfoView.swift in Sources */,
 				DD9F1BE327CD52C700FF7AE5 /* StemPlayer.swift in Sources */,
 			);
