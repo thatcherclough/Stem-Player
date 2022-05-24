@@ -38,7 +38,7 @@ struct InfoView: View {
                     ManualView(completion: {
                         showManualView = false
                     })
-                        .frame(width: geometry.size.width - 50, height: geometry.size.width)
+                        .frame(width: geometry.size.width > 550 ? 500 : geometry.size.width - 50, height: geometry.size.width > 550 ? 550 : geometry.size.width)
                         .padding(.bottom, geometry.size.height * 0.05)
                         .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))
                         .zIndex(1)
