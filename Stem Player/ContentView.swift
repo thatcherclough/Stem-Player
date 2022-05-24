@@ -11,9 +11,9 @@ import AVFoundation
 // Chosing files on mac
 // Add spacial audio support
 // Editing tracks
-// Color wheel button press animation
 // Issues with chosing from google drive
-// Make it clear that is does not split stems
+// Make the player bigger
+// Picking from google drive loads forever
 
 struct ContentView: View {
     
@@ -23,6 +23,8 @@ struct ContentView: View {
     @State var showStemPlayer: Bool = true
     
     @State var stemPlayerView: StemPlayerView?
+    
+    @State var launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
     
     var body: some View {
         GeometryReader { geometry in
@@ -69,7 +71,7 @@ struct ContentView: View {
                         .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                         .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))
                         .zIndex(1)
-                } else {
+                } else if launchedBefore {
                     VStack {
                         Spacer()
                         
@@ -97,13 +99,51 @@ struct ContentView: View {
                                     .foregroundColor(Color(UIColor.label))
                             }
                             .padding(2.5)
+                            .padding(.bottom, geometry.size.height * 0.05)
+                            
+                            Button {
+                                showInfo = true
+                            } label: {
+                                Text("[ MORE INFO ]")
+                                    .font(.custom("HelveticaNeue-CondensedBold", size: 25))
+                                    .foregroundColor(Color(UIColor.label))
+                            }
+                            .padding(2.5)
                         }
-                        .padding(.bottom, geometry.size.height * 0.05)
+                        
+                        Spacer()
+                        Spacer()
+                    }
+                    .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))
+                    .zIndex(1)
+                } else {
+                    VStack {
+                        Spacer()
+                        
+                        Text("WELCOME!")
+                            .font(.custom("HelveticaNeue-CondensedBold", size: 45))
+                        
+                        Spacer()
+                        
+                        Text("This app allows you to manipulate the individual stems of a song, similar to Ye's Stem Player.")
+                            .multilineTextAlignment(.center)
+                            .font(.custom("HelveticaNeue-CondensedBold", size: 20))
+                            .padding(.bottom, 10)
+                        Text("This app cannot split a song into its stems. It acts as a player once you have the stems. Resources for splitting a song into its stems can be found in the \"MORE INFO\" section.")
+                            .multilineTextAlignment(.center)
+                            .font(.custom("HelveticaNeue-CondensedBold", size: 20))
+                            .padding(.bottom, 10)
+                        Text("Once you have the stems, and they are storred in the Files app, they can be used.")
+                            .multilineTextAlignment(.center)
+                            .font(.custom("HelveticaNeue-CondensedBold", size: 20))
+                        
+                        Spacer()
                         
                         Button {
-                            showInfo = true
+                            UserDefaults.standard.set(true, forKey: "launchedBefore")
+                            launchedBefore = true
                         } label: {
-                            Text("[ MORE INFO ]")
+                            Text("[ GET STARTED ]")
                                 .font(.custom("HelveticaNeue-CondensedBold", size: 25))
                                 .foregroundColor(Color(UIColor.label))
                         }
@@ -112,6 +152,7 @@ struct ContentView: View {
                         Spacer()
                         Spacer()
                     }
+                    .frame(width: geometry.size.width - 50)
                     .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))
                     .zIndex(1)
                 }
