@@ -9,8 +9,11 @@ import SwiftUI
 import AVFoundation
 
 // Chosing files on mac
-// Repo name chnage
-// Splitting
+// Add spacial audio support
+// Editing tracks
+// Color wheel button press animation
+// Issues with chosing from google drive
+// Make it clear that is does not split stems
 
 struct ContentView: View {
     
